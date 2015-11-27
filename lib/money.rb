@@ -30,11 +30,13 @@ class Money
   def +(money)
     if money.currency == self.currency
       new_amount = @amount + money.amount
-      return Money.new(new_amount, currency)
+      new_money  = Money.new(new_amount, currency)
     else
       new_amount = money.convert_to(self.currency).amount + money.amount
-      return Money.new(new_amount, currency)
+      new_money  = Money.new(new_amount, currency)
     end
+
+    new_money
   end
   
   
