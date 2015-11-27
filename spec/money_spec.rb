@@ -83,6 +83,9 @@ describe Money do
         expect(total.inspect).to eq '105.50 USD'
       end
 
+      it 'raise exception when not money object' do
+        expect { fifty_eur + 10 }.to raise_error(TypeError)
+      end
     end
 
     context 'subtraction' do
@@ -98,6 +101,10 @@ describe Money do
         total = fifty_usd - fifty_eur
 
         expect(total.inspect).to eq '5.50 USD'
+      end
+
+      it 'raise exception when not money object' do
+        expect { fifty_eur - 10 }.to raise_error(TypeError)
       end
     end
 
@@ -128,7 +135,7 @@ describe Money do
 
   describe 'Comparisons' do
     context 'equality' do
-      it 'with same currency and amount should be equals' do
+      it 'with same currency and amount' do
         twenty_dollars = Money.new(20, 'USD')
         
         expect(twenty_dollars == Money.new(20, 'USD')).to eq true
@@ -140,7 +147,7 @@ describe Money do
        expect(fifty_eur_in_usd == fifty_eur).to eq true
      end
 
-     it 'equals' do
+     it 'with same currency and different amount' do
        twenty_dollars = Money.new(20, 'USD')
        
        expect(twenty_dollars == Money.new(20, 'USD')).to eq true
@@ -172,7 +179,6 @@ describe Money do
         
         expect(twenty_dollars > two_euros).to eq true
       end
-
     end
 
     context 'less that' do
