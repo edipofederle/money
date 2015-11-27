@@ -1,6 +1,12 @@
 require 'spec_helper'
 
 describe Money do
+
+  before do
+    Money.conversion_rates('EUR', {'USD' => 1.11, 'Bitcoin' => 0.0047})
+  end
+
+  let(:fifity_eur) { Money.new(50, 'EUR') }
   
   it 'has a version number' do
     expect(Money::VERSION).to eq "0.1.0"
@@ -13,7 +19,7 @@ describe Money do
   end
 
   describe 'Money instance' do
-    let(:fifity_eur) { Money.new(50, 'EUR') }
+    
     
     it 'is a instance of Money' do
       expect(fifity_eur).to be_an_instance_of Money
@@ -32,4 +38,19 @@ describe Money do
     end
   end
 
+  describe 'Convert to a different Currency' do
+    it 'to USD' do
+      fifity_usd = fifity_eur.convert_to('USD')
+      
+      expect(fifity_usd).to be_an_instance_of Money
+      expect(fifity_usd.inspect).to eq "55.50 USD"
+    end
+
+    it 'to Bitcoin' do
+      fifity_bitcoin = fifity_eur.convert_to('Bitcoin')
+      
+      expect(fifity_bitcoin).to be_an_instance_of Money
+      expect(fifity_bitcoin.inspect).to eq "0.24 Bitcoin"
+    end
+  end
 end
