@@ -20,7 +20,6 @@ describe Money do
 
   describe 'Money instance' do
     
-    
     it 'is a instance of Money' do
       expect(fifity_eur).to be_an_instance_of Money
     end
@@ -51,6 +50,19 @@ describe Money do
       
       expect(fifity_bitcoin).to be_an_instance_of Money
       expect(fifity_bitcoin.inspect).to eq '0.24 Bitcoin'
+    end
+
+    it 'from USD to EUR' do
+      fifty_eur_in_usd = fifity_eur.convert_to('USD')
+      expect(fifty_eur_in_usd.convert_to('EUR').inspect).to eq '50.00 EUR'
+    end
+
+    it 'from EUR to USD' do
+      expect(fifity_eur.convert_to('USD').inspect).to eq '55.50 USD'
+    end
+
+    it 'from EUR to Bitcoin' do
+       expect(fifity_eur.convert_to('Bitcoin').inspect).to eq '0.24 Bitcoin'
     end
   end
 
@@ -138,7 +150,31 @@ describe Money do
         expect(total.inspect).to eq '150.00 EUR'
       end
     end
+  end
 
+  describe 'Comparisons' do
+    context 'equality' do
+       it 'with same currency and amount should be equals' do
+        twenty_dollars = Money.new(20, 'USD')
+        expect(twenty_dollars == Money.new(20, 'USD')).to eq true
+      end
+
+     it 'with different currency should be equals' do
+       fifty_eur_in_usd = fifity_eur.convert_to('USD')
+       expect(fifty_eur_in_usd == fifity_eur).to eq true
+     end
+
+     it 'equals' do
+       twenty_dollars = Money.new(20, 'USD')
+       expect(twenty_dollars == Money.new(20, 'USD')).to eq true
+     end
+
+     it 'equals 2' do
+       twenty_dollars = Money.new(20, 'USD')
+       expect(Money.new(20, 'USD') == twenty_dollars).to eq true
+     end
+    end
+    
   end
 end
 

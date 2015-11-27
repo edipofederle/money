@@ -22,7 +22,11 @@ class Money
   end
   
   def convert_to(currency)
-    new_amount = @amount * Money.currencies_rates[currency]
+    if  Money.currencies_rates[currency]
+      new_amount = @amount * Money.currencies_rates[currency]
+    else
+      new_amount = @amount / Money.currencies_rates[self.currency]
+    end
     
     Money.new(new_amount, currency)
   end
@@ -43,7 +47,14 @@ class Money
     operation("*", money)
   end
 
-  
+  def ==(money)
+    if money.currency == self.currency
+      return money.amount == self.amount
+    else
+      self.amount == money.convert_to(self.currency).amount
+    end
+  end
+
 
   def operation(fn, money)
     if money.is_a?(Numeric)
