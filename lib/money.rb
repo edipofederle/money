@@ -55,6 +55,14 @@ class Money
     end
   end
 
+  def >(money)
+    if money.currency == self.currency
+      return money.amount > self.amount
+    else
+      self.amount > money.convert_to(self.currency).amount
+    end
+  end
+
 
   def operation(fn, money)
     if money.is_a?(Numeric)
