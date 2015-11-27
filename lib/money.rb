@@ -9,6 +9,14 @@ class Money
     @currency = currency
   end
 
+  def inspect
+    "#{'%.2f' % @amount} #{@currency}"
+  end
+
+  def to_s
+    inspect
+  end
+
   class << self
     attr_accessor :base_rate, :currencies_rates
   end

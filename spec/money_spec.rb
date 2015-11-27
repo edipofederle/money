@@ -26,6 +26,10 @@ describe Money do
     it 'has currency' do
       expect(fifity_eur.currency).to eq 'EUR'
     end
+
+    it 'inspect should be amount and currency' do
+      expect(fifity_eur.inspect).to eq '50.00 EUR'
+    end
   end
 
 end
