@@ -52,10 +52,10 @@ class Money
       
       if other_money.currency.eql?(self.currency)
         new_amount = @amount.send(fn.to_sym, other_money.amount)
-        new_money  = Money.new(new_amount, currency)
+        new_money  = self.class.new(new_amount, currency)
       else
         new_amount = other_money.convert_to(self.currency).amount.send(fn.to_sym, other_money.amount)
-        new_money  = Money.new(new_amount, currency)
+        new_money  = self.class.new(new_amount, currency)
       end
       
       new_money

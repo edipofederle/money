@@ -25,9 +25,9 @@ class Money
   
   def convert_to(currency)
     if  Money.currencies_rates[currency]
-      new_amount = @amount * Money.currencies_rates[currency]
+      new_amount = @amount * self.class.currencies_rates[currency]
     else
-      new_amount = @amount / Money.currencies_rates[self.currency]
+      new_amount = @amount / self.class.currencies_rates[self.currency]
     end
     
     Money.new(new_amount, currency)
