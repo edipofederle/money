@@ -13,7 +13,7 @@ class Money
       if value.is_a? Numeric
         self.class.new(self.amount / value, self.currency)
       else
-        raise ArgumentError, "Can't divide #{self.class.name} by #{value.class.name}"
+        raise ArgumentError, "Can't divide #{self.class.name} by a #{value.class.name}"
       end
     end
 
@@ -47,7 +47,6 @@ class Money
 
     def operation(fn, other_money)
       raise_unexpected_type(fn, other_money) unless other_money.is_a?(Money)
-      
       return self if other_money.eql?(0)
       
       if other_money.currency.eql?(self.currency)
