@@ -43,14 +43,48 @@ describe Money do
       fifity_usd = fifity_eur.convert_to('USD')
       
       expect(fifity_usd).to be_an_instance_of Money
-      expect(fifity_usd.inspect).to eq "55.50 USD"
+      expect(fifity_usd.inspect).to eq '55.50 USD'
     end
 
     it 'to Bitcoin' do
       fifity_bitcoin = fifity_eur.convert_to('Bitcoin')
       
       expect(fifity_bitcoin).to be_an_instance_of Money
-      expect(fifity_bitcoin.inspect).to eq "0.24 Bitcoin"
+      expect(fifity_bitcoin.inspect).to eq '0.24 Bitcoin'
     end
   end
-end
+
+  describe 'Arithmetics' do
+    context 'addition' do
+      it 'with same currency' do
+        ten_eur = Money.new(10, 'EUR')
+        total = ten_eur + fifity_eur
+
+        expect(total.inspect).to eq '60.00 EUR'
+      end
+
+      it 'with different currency' do
+        fifity_usd = fifity_eur.convert_to('USD')
+        total = fifity_usd + fifity_eur
+
+        expect(total.inspect).to eq '105.50 USD'
+      end
+      
+    end
+  end
+ end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
