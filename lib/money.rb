@@ -28,18 +28,37 @@ class Money
   end
 
   def +(money)
+    operation("+", money)
+  end
+
+  def -(money)
+    operation("-", money)
+  end
+
+  def /(money)
+    operation("/", money)
+  end
+
+  def *(money)
+    operation("*", money)
+  end
+
+  
+
+  def operation(fn, money)
+    if money.is_a?(Numeric)
+      money = Money.new(money, self.currency)
+    end
+    
     if money.currency == self.currency
-      new_amount = @amount + money.amount
+      new_amount = @amount.send(fn.to_sym, money.amount)
       new_money  = Money.new(new_amount, currency)
     else
-      new_amount = money.convert_to(self.currency).amount + money.amount
+      new_amount = money.convert_to(self.currency).amount.send(fn.to_sym, money.amount)
       new_money  = Money.new(new_amount, currency)
     end
-
     new_money
   end
-  
-  
   
   # Configure the currency rates with respect to a base currency (here EUR):
   def self.conversion_rates(base_rate, currencies_rates)

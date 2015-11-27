@@ -69,10 +69,63 @@ describe Money do
 
         expect(total.inspect).to eq '105.50 USD'
       end
-      
+
+      it 'with same currency and number' do
+        total = fifity_eur + 10
+        expect(total.inspect).to eq '60.00 EUR'
+      end
     end
+
+    context 'subtraction' do
+      it 'with same currency' do
+        ten_eur = Money.new(10, 'EUR')
+        total = fifity_eur - ten_eur
+
+        expect(total.inspect).to eq '40.00 EUR'
+      end
+
+      it 'with different currency' do
+        fifity_usd = fifity_eur.convert_to('USD')
+        total = fifity_usd - fifity_eur
+
+        expect(total.inspect).to eq '5.50 USD'
+      end
+    end
+
+    context 'division' do
+      it 'with same currency' do
+        ten_eur = Money.new(10, 'EUR')
+        total = fifity_eur / ten_eur
+
+        expect(total.inspect).to eq '5.00 EUR'
+      end
+
+      it 'with different currency' do
+        fifity_usd = fifity_eur.convert_to('USD')
+        total = fifity_usd / fifity_eur
+
+        expect(total.inspect).to eq '1.11 USD'
+      end
+    end
+
+    context 'multiply' do
+      it 'with same currency' do
+        ten_eur = Money.new(10, 'EUR')
+        total = fifity_eur * ten_eur
+        
+        expect(total.inspect).to eq '500.00 EUR'
+      end
+
+      it 'with different currency' do
+        fifity_usd = fifity_eur.convert_to('USD')
+        total = fifity_usd * fifity_eur
+
+        expect(total.inspect).to eq '2775.00 USD'
+      end
+    end
+
   end
- end
+end
 
 
 
