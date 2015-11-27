@@ -1,7 +1,9 @@
 require "money/version"
+require "money/arithmetic"
 
 class Money
-
+  include Money::Arithmetic
+  
   attr_reader :amount, :currency
 
   class << self
@@ -29,58 +31,6 @@ class Money
     end
     
     Money.new(new_amount, currency)
-  end
-
-  def +(money)
-    operation("+", money)
-  end
-
-  def -(money)
-    operation("-", money)
-  end
-
-  def /(money)
-    operation("/", money)
-  end
-
-  def *(money)
-    operation("*", money)
-  end
-
-  def ==(money)
-    comparation("==", money)
-  end
-
-  def >(money)
-    comparation(">", money)
-  end
-
-  def <(money)
-    comparation("<", money)
-  end
-
-  def comparation(fn, money)
-    if money.currency == self.currency
-       money.amount.send(fn.to_sym, self.amount)
-    else
-      self.amount.send(fn.to_sym, money.convert_to(self.currency).amount)
-    end
-  end
-
-  def operation(fn, money)
-    if money.is_a?(Numeric)
-      money = Money.new(money, self.currency)
-    end
-    
-    if money.currency == self.currency
-      new_amount = @amount.send(fn.to_sym, money.amount)
-      new_money  = Money.new(new_amount, currency)
-    else
-      new_amount = money.convert_to(self.currency).amount.send(fn.to_sym, money.amount)
-      new_money  = Money.new(new_amount, currency)
-    end
-    
-    new_money
   end
   
   # Configure the currency rates with respect to a base currency (here EUR):

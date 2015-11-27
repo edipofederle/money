@@ -83,11 +83,6 @@ describe Money do
         expect(total.inspect).to eq '105.50 USD'
       end
 
-      it 'with same currency and number' do
-        total = fifty_eur + 10
-        
-        expect(total.inspect).to eq '60.00 EUR'
-      end
     end
 
     context 'subtraction' do
@@ -104,55 +99,29 @@ describe Money do
 
         expect(total.inspect).to eq '5.50 USD'
       end
-
-      it 'with same currency and number' do
-        total = fifty_eur - 5.5
-        
-        expect(total.inspect).to eq '44.50 EUR'
-      end
     end
 
     context 'division' do
-      it 'with same currency' do
-        ten_eur = Money.new(10, 'EUR')
-        total = fifty_eur / ten_eur
-
-        expect(total.inspect).to eq '5.00 EUR'
-      end
-
-      it 'with different currency' do
-        fifty_usd = fifty_eur.convert_to('USD')
-        total = fifty_usd / fifty_eur
-
-        expect(total.inspect).to eq '1.11 USD'
-      end
-
       it 'with same currency and number' do
         total = fifty_eur / 2
         
         expect(total.inspect).to eq '25.00 EUR'
       end
+
+      it 'raise a error if not a number' do
+        expect { fifty_eur / "2" }.to raise_error(ArgumentError)
+      end
     end
 
     context 'multiply' do
-      it 'with same currency' do
-        ten_eur = Money.new(10, 'EUR')
-        total = fifty_eur * ten_eur
-        
-        expect(total.inspect).to eq '500.00 EUR'
-      end
-
-      it 'with different currency' do
-        fifty_usd = fifty_eur.convert_to('USD')
-        total = fifty_usd * fifty_eur
-
-        expect(total.inspect).to eq '2775.00 USD'
-      end
-
       it 'with same currency and number' do
         total = fifty_eur * 3
         
         expect(total.inspect).to eq '150.00 EUR'
+      end
+
+      it 'raise a error if not a number' do
+        expect { fifty_eur * "2" }.to raise_error(ArgumentError)
       end
     end
   end
@@ -203,6 +172,7 @@ describe Money do
         
         expect(twenty_dollars > two_euros).to eq true
       end
+
     end
 
     context 'less that' do
