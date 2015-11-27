@@ -61,7 +61,7 @@ class Money
 
   def comparation(fn, money)
     if money.currency == self.currency
-      return money.amount.send(fn.to_sym, self.amount)
+       money.amount.send(fn.to_sym, self.amount)
     else
       self.amount.send(fn.to_sym, money.convert_to(self.currency).amount)
     end
@@ -79,6 +79,7 @@ class Money
       new_amount = money.convert_to(self.currency).amount.send(fn.to_sym, money.amount)
       new_money  = Money.new(new_amount, currency)
     end
+    
     new_money
   end
   
