@@ -12,10 +12,20 @@ describe Money do
     expect(Money.base_rate).to eq 'EUR'
   end
 
-  it 'is a instance of Money' do
-    fifity_eur = Money.new(50, 'EUR')
+  describe 'Money instance' do
+    let(:fifity_eur) { Money.new(50, 'EUR') }
     
-    expect(fifity_eur).to be_an_instance_of Money
+    it 'is a instance of Money' do
+      expect(fifity_eur).to be_an_instance_of Money
+    end
+
+    it 'has amount' do
+      expect(fifity_eur.amount).to eq 50
+    end
+
+    it 'has currency' do
+      expect(fifity_eur.currency).to eq 'EUR'
+    end
   end
 
 end

@@ -2,8 +2,10 @@ require "money/version"
 
 class Money
 
-  def initialize(value, currency)
-    @value    = value
+  attr_reader :amount, :currency
+  
+  def initialize(amount, currency)
+    @amount   = amount
     @currency = currency
   end
 
