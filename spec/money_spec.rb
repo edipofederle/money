@@ -159,9 +159,9 @@ describe Money do
 
   describe 'Comparisons' do
     context 'equality' do
-       it 'with same currency and amount should be equals' do
-         twenty_dollars = Money.new(20, 'USD')
-         
+      it 'with same currency and amount should be equals' do
+        twenty_dollars = Money.new(20, 'USD')
+        
         expect(twenty_dollars == Money.new(20, 'USD')).to eq true
       end
 
@@ -184,7 +184,7 @@ describe Money do
      end
     end
 
-    context "greater" do
+    context 'greater that' do
       it 'euro should be greater that dollars' do
         twenty_dollars = Money.new(20, 'USD')
         
@@ -204,7 +204,22 @@ describe Money do
         expect(twenty_dollars > two_euros).to eq true
       end
     end
-    
+
+    context 'less that' do
+      it 'euro should be less that dollars' do
+        twenty_dollars = Money.new(20, 'USD')
+        two_euros      = Money.new(2, 'EUR')
+        
+        expect(two_euros < twenty_dollars).to eq true
+      end
+
+      it 'euro should be less that dollars' do
+        twenty_dollars = Money.new(5, 'USD')
+        two_euros      = Money.new(20, 'EUR')
+        
+        expect(two_euros < twenty_dollars).to eq false
+      end
+    end
   end
 end
 

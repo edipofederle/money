@@ -48,21 +48,24 @@ class Money
   end
 
   def ==(money)
-    if money.currency == self.currency
-      return money.amount == self.amount
-    else
-      self.amount == money.convert_to(self.currency).amount
-    end
+    comparation("==", money)
   end
 
   def >(money)
-    if money.currency == self.currency
-      return money.amount > self.amount
-    else
-      self.amount > money.convert_to(self.currency).amount
-    end
+    comparation(">", money)
   end
 
+  def <(money)
+    comparation("<", money)
+  end
+
+  def comparation(fn, money)
+    if money.currency == self.currency
+      return money.amount.send(fn.to_sym, self.amount)
+    else
+      self.amount.send(fn.to_sym, money.convert_to(self.currency).amount)
+    end
+  end
 
   def operation(fn, money)
     if money.is_a?(Numeric)
