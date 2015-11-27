@@ -90,6 +90,11 @@ describe Money do
 
         expect(total.inspect).to eq '5.50 USD'
       end
+
+      it 'with same currency and number' do
+        total = fifity_eur - 5.5
+        expect(total.inspect).to eq '44.50 EUR'
+      end
     end
 
     context 'division' do
@@ -106,6 +111,11 @@ describe Money do
 
         expect(total.inspect).to eq '1.11 USD'
       end
+
+      it 'with same currency and number' do
+        total = fifity_eur / 2
+        expect(total.inspect).to eq '25.00 EUR'
+      end
     end
 
     context 'multiply' do
@@ -121,6 +131,11 @@ describe Money do
         total = fifity_usd * fifity_eur
 
         expect(total.inspect).to eq '2775.00 USD'
+      end
+
+      it 'with same currency and number' do
+        total = fifity_eur * 3
+        expect(total.inspect).to eq '150.00 EUR'
       end
     end
 
