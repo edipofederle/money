@@ -21,7 +21,7 @@ class Money
       if value.is_a?(Numeric)
         self.class.new(self.amount * value, self.currency)
       else
-        raise ArgumentError, "Can't multiply #{self.class.name} by #{value.class.name}"
+        raise ArgumentError, "Can't multiply #{self.class.name} by a #{value.class.name}"
       end
     end
 
@@ -53,9 +53,9 @@ class Money
         new_amount = self.amount.send(fn.to_sym, other_money.amount)
         new_money  = self.class.new(new_amount, currency)
       else
-        new_amount   = self.amount.send(fn.to_sym,
-                                        other_money.convert_to(self.currency).amount)
-        new_money    = self.class.new(new_amount, self.currency)
+        new_amount = self.amount.send(fn.to_sym,
+                                      other_money.convert_to(self.currency).amount)
+        new_money  = self.class.new(new_amount, self.currency)
       end
     end
 
