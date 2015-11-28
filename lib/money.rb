@@ -32,7 +32,7 @@ class Money
       new_amount = self.amount / self.class.currencies_rates[self.currency]
    end
     
-    Money.new(new_amount, currency)
+    self.class.new(new_amount, currency)
   end
   
   # Configure the currency rates with respect to a base currency (here EUR):

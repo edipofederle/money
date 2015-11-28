@@ -10,7 +10,7 @@ class Money
     end
 
     def /(value)
-      if value.is_a? Numeric
+      if value.is_a?(Numeric)
         self.class.new(self.amount / value, self.currency)
       else
         raise ArgumentError, "Can't divide #{self.class.name} by a #{value.class.name}"
@@ -18,7 +18,7 @@ class Money
     end
 
     def *(value)
-      if value.is_a? Numeric
+      if value.is_a?(Numeric)
         self.class.new(self.amount * value, self.currency)
       else
         raise ArgumentError, "Can't multiply #{self.class.name} by #{value.class.name}"
@@ -50,16 +50,14 @@ class Money
       return self if other_money.eql?(0)
       
       if other_money.currency.eql?(self.currency)
-        new_amount = @amount.send(fn.to_sym, other_money.amount)
+        new_amount = self.amount.send(fn.to_sym, other_money.amount)
         new_money  = self.class.new(new_amount, currency)
       else
         new_currency = self.currency
-        new_amount = self.amount.send(fn.to_sym,
-                                      other_money.convert_to(new_currency).amount)
-        new_money  = self.class.new(new_amount, new_currency)
+        new_amount   = self.amount.send(fn.to_sym,
+                                        other_money.convert_to(new_currency).amount)
+        new_money    = self.class.new(new_amount, new_currency)
       end
-      
-      new_money
     end
 
     private
