@@ -53,10 +53,9 @@ class Money
         new_amount = self.amount.send(fn.to_sym, other_money.amount)
         new_money  = self.class.new(new_amount, currency)
       else
-        new_currency = self.currency
         new_amount   = self.amount.send(fn.to_sym,
-                                        other_money.convert_to(new_currency).amount)
-        new_money    = self.class.new(new_amount, new_currency)
+                                        other_money.convert_to(self.currency).amount)
+        new_money    = self.class.new(new_amount, self.currency)
       end
     end
 
