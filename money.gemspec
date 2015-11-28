@@ -9,8 +9,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Edipo L Federle"]
   spec.email         = ["edipofederle@gmail.com"]
 
-  spec.summary       = %q{TODO: Write a short summary, because Rubygems requires one.}
-  spec.description   = %q{TODO: Write a longer description or delete this line.}
+  spec.summary       = %q{Conversion and basic arithmetic with currencies}
+  spec.description   = %q{A Ruby Gem for Conversion and basic arithmetic with currencies}
   spec.homepage      = "TODO: Put your gem's website or public repo URL here."
 
   # Prevent pushing this gem to RubyGems.org by setting 'allowed_push_host', or
