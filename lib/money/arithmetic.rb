@@ -39,7 +39,7 @@ class Money
 
     def comparation(fn, other_money)
       if other_money.currency.eql?(self.currency)
-        other_money.amount.send(fn.to_sym, self.amount)
+        self.amount.send(fn.to_sym, other_money.amount)
       else
         self.amount.send(fn.to_sym, other_money.convert_to(self.currency).amount)
       end
@@ -53,8 +53,10 @@ class Money
         new_amount = @amount.send(fn.to_sym, other_money.amount)
         new_money  = self.class.new(new_amount, currency)
       else
-        new_amount = other_money.convert_to(self.currency).amount.send(fn.to_sym, other_money.amount)
-        new_money  = self.class.new(new_amount, currency)
+        new_currency = self.currency
+        new_amount = self.amount.send(fn.to_sym,
+                                      other_money.convert_to(new_currency).amount)
+        new_money  = self.class.new(new_amount, new_currency)
       end
       
       new_money
