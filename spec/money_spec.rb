@@ -38,44 +38,49 @@ describe Money do
 
   describe '#convert_to' do
     context 'with same currency' do
-      context 'dollar'
-      it {
-        ten_dollars = Money.new(10, 'USD')
-        expect(ten_dollars.convert_to('USD').inspect).to eq '10.00 USD'
-      }
-      
-      it {
-        ten_euros = Money.new(10, 'EUR')
-        expect(ten_euros.convert_to('EUR').inspect).to eq '10.00 EUR'
-      }
+      context 'Dollar' do
+        it {
+          ten_dollars = Money.new(10, 'USD')
+          expect(ten_dollars.convert_to('USD').inspect).to eq '10.00 USD'
+        }
+      end
 
-      it 'from Bitcoin to Bitcoin' do
-        ten_euros = Money.new(1, 'Bitcoin')
-        expect(ten_euros.convert_to('Bitcoin').inspect).to eq '1.00 Bitcoin'
-      end      
+      context 'Euro' do
+        it {
+          ten_euros = Money.new(10, 'EUR')
+          expect(ten_euros.convert_to('EUR').inspect).to eq '10.00 EUR'
+        }
+      end
+
+      context 'Bitcoin' do
+        it 'from Bitcoin to Bitcoin' do
+          ten_euros = Money.new(1, 'Bitcoin')
+          expect(ten_euros.convert_to('Bitcoin').inspect).to eq '1.00 Bitcoin'
+        end
+      end
     end
 
     context 'with differenct currency' do
-      it 'from EUR to USD' do
+      it 'from Euro to Dollar' do
         fifty_dollars  = fifty_euros.convert_to('USD')
         
         expect(fifty_dollars).to be_an_instance_of Money
         expect(fifty_dollars.inspect).to eq '55.50 USD'
       end
 
-      it 'from Bitcoin to EUR' do
+      it 'from Bitcoin to Euro' do
         one_btx = Money.new(1, 'Bitcoin')
         expect(one_btx.convert_to('EUR').inspect).to eq '212.77 EUR'
       end
 
       
-      it 'from USD to EUR' do
+      it 'from Dollar to Euro' do
         ten_usd = Money.new(10, 'USD')
         
         expect(ten_usd.convert_to('EUR').inspect).to eq '9.01 EUR'
       end
 
-      it 'from EUR to Bitcoin' do
+      it 'from Euro to Bitcoin' do
         expect(fifty_euros.convert_to('Bitcoin').inspect).to eq '0.24 Bitcoin'
       end
     end
